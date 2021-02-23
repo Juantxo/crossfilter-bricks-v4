@@ -1,0 +1,44 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html,
+  body {
+    background: white;
+    width: 21cm;
+    height: 29.7cm;
+    display: block;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    div {
+      white-space: nowrap;
+    }
+  }
+
+  header,
+  footer,
+  nav,
+  aside,
+  button,
+  .close {
+    display: none;
+  }
+
+  a:after {
+    content: " <" attr(href) ">";
+  }
+  a[href^="http"]:after {
+    content: " <" attr(href) ">";
+  }
+  ul,
+  img,
+  table {
+    page-break-inside: avoid;
+  }
+
+  /* Contenido del fichero print.css */
+}

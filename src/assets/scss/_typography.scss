@@ -1,0 +1,57 @@
+.section {
+  font-size: 14px;
+  p {
+    font-size: 14px;
+  }
+
+  p.small,
+  small {
+    font-size: 12px;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 400;
+    text-emphasis: none;
+    text-align: center;
+    margin-top: 16px;
+  }
+  h3.result {
+    height: 32px;
+  }
+  p.selection {
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 4px;
+    color: $primary;
+    min-height: 22px;
+    text-align: left;
+  }
+  p.mandatory {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 4px;
+    color: $primary;
+    min-height: 22px;
+  }
+  p.mandatory span {
+    display: none;
+  }
+  p.big-number {
+    font-size: 32px;
+    text-align: center;
+    margin: 0 auto 8px auto;
+  }
+  .green {
+    color: $green;
+  }
+  .red {
+    color: $primary;
+  }
+  .blue {
+    color: $blue;
+  }
+}
