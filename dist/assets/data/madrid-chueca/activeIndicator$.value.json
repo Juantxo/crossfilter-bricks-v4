@@ -1,0 +1,12 @@
+{
+    "active": "true",
+    "key": "v_psolter",
+    "categoria": "Población",
+    "categoria_key": "poblacion",
+    "subcategoria": "Estado civil",
+    "subcategoria_key": "estado_civil",
+    "grupo": "civil_status",
+    "indicador": "Solteros",
+    "screen_name": "Solteros",
+    "formato": "Volumen"
+}

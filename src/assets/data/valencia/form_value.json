@@ -1,0 +1,16 @@
+{
+    "indicators": [
+        {
+            "indName": "Empleados empresas",
+            "indKey": "Empleados_empresa",
+            "minValue": 0,
+            "maxValue": 5828
+        },
+        {
+            "indName": "Volumen de hogares (MIV 2014)",
+            "indKey": "tot_hog",
+            "minValue": 0,
+            "maxValue": 3111
+        }
+    ]
+}

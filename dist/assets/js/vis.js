@@ -7,6 +7,7 @@
     let p2 = d3.json("./assets/data/activeIndicator$.value.json?v=2000");
     let p3 = d3.json("./assets/data/analyticsIndicators$.value.json?v=2000");
     let data = [];
+    let charts;
     let chart;
     let crossAll;
     const formatNumber = d3.format(',d');
@@ -43,10 +44,16 @@
                 // Create the skeletal chart.
                 if (g.empty()) {
                     div.select('.title').append('a')
-                        .attr('href', `javascript:reset(${id})`)
+                        //.attr('href', `javascript:reset(${id})`)
+                        .attr("href", "#")
                         .attr('class', 'reset')
                         .text('reset')
-                        .style('display', 'none');
+                        .style('display', 'none')
+                        .on("click", (d, i, arr) => {
+                            //let y = `${id}`;
+                            reset(`${id}`);
+
+                        });
 
                     g = div.append('svg')
                         .attr('width', width + margin.left + margin.right)
@@ -138,9 +145,9 @@
             div.select('.title a').style('display', null);
         });
 
-        brush.on('brush.chart', function () {
+        brush.on('brush.chart', function (event) {
             const g = d3.select(this.parentNode);
-            const brushRange = d3.event.selection || d3.brushSelection(this); // attempt to read brush range
+            const brushRange = event.selection || d3.brushSelection(this); // attempt to read brush range
             const xRange = x && x.range(); // attempt to read range from x scale
             let activeRange = brushRange || xRange; // default to x range if no brush range available
 
@@ -161,8 +168,8 @@
                 activeRange = extents.map(x);
 
                 if (
-                    d3.event.sourceEvent &&
-                    d3.event.sourceEvent.type === 'mousemove'
+                    event.sourceEvent &&
+                    event.sourceEvent.type === 'mousemove'
                 ) {
                     d3.select(this).call(brush.move, activeRange);
                 }
@@ -284,9 +291,11 @@
             {
                 key: indicator.key,
                 dimension: brick.dimension(d => Math.max(indicator.values.floor, Math.min(indicator.values.ceil, d[indicator.key])))
+                //dimension: brick.dimension(d => Math.min(indicator.values.ceil, d[indicator.key]))
+
             }
             // groups of 50 (ranges)
-            temp["group"] = temp.dimension.group(d => Math.floor(d / 50) * 50);
+            temp["group"] = temp.dimension.group(d => Math.floor(d / 10) * 10);
             ranges.push(temp);
         });
         return ranges;
@@ -299,17 +308,13 @@
                 .dimension(range[0].dimension)
                 .group(range[0].group)
                 .x(d3.scaleLinear()
-                    .domain([indicator.values.floor, indicator.values.ceil])
+                    .domain([indicator.values.floor - 20, indicator.values.ceil + 20])
                     .rangeRound([0, 10 * 40]));
         });
 
     }
 
-    function drawCharts(charts) {
-        const chart = d3.selectAll('.chart')
-            .data(charts);
-        return chart;
-    }
+
 
     function drawTotalNumber(brick) {
         return d3.selectAll('#total')
@@ -333,13 +338,20 @@
         d3.select(arr[index]).call(method);
     };
 
+    let filter = filters => {
+        filters.forEach((d, i) => { charts[i].filter(d); });
+        renderAll();
+    };
+
+    let reset = i => {
+        charts[i].filter(null);
+        renderAll();
+    };
 
 
     function initCrossfilters() {
         Promise.all([p1, p2, p3])
             .then(([bricks, activeIndicator, analyticsIndicators]) => {
-
-
                 // divs
                 buildHtmlContainers(analyticsIndicators);
                 // filter valid bricks (with data portals)
@@ -348,21 +360,16 @@
                 mapBricks(data, analyticsIndicators);
                 // build the array to store dimensions and groups -stored in ranges array-
                 const crossBrick = crossfilter(data);
-                crossAll = crossBrick.groupAll();
                 const crossRanges = buildDimensions(crossBrick, analyticsIndicators);
+                charts = buildCharts(crossRanges, analyticsIndicators);
+                // the selection
+                crossAll = crossBrick.groupAll();
+                // the chart selection 
 
-                const charts = buildCharts(crossRanges, analyticsIndicators);
-
-                let x = d3.selectAll('.chart');
-                chart = d3.selectAll('.chart')
-                    .data(charts);
+                chart = d3.selectAll('.chart').data(charts);
 
                 drawTotalNumber(crossBrick);
                 renderAll();
-
-                //d3.select('#active').text(formatNumber(all.value()));
-
-
 
                 let y = data;
             });

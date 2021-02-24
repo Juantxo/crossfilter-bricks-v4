@@ -1,0 +1,22 @@
+{
+    "indicators": [
+        {
+            "indName": "Matriculaciones monovolúmenes",
+            "indKey": "v_monovolumenes",
+            "minValue": 99,
+            "maxValue": 449
+        },
+        {
+            "indName": "Ingresos medios brutos por hogar",
+            "indKey": "Ingresos_brutos_hogar",
+            "minValue": 46552,
+            "maxValue": 46957
+        },
+        {
+            "indName": "Solteros",
+            "indKey": "v_psolter",
+            "minValue": 709,
+            "maxValue": 3416
+        }
+    ]
+}

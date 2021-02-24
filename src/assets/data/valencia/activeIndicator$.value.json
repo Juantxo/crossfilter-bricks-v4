@@ -1,0 +1,12 @@
+{
+    "active": "true",
+    "key": "tot_hog",
+    "categoria": "Hogares",
+    "categoria_key": "hogares",
+    "subcategoria": "Hogares",
+    "subcategoria_key": "hogares",
+    "grupo": "number_household_components",
+    "indicador": "Volumen de hogares (MIV 2014)",
+    "screen_name": "Hogares",
+    "formato": "Volumen"
+}
