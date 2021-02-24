@@ -1,6 +1,10 @@
 {
     "name": "crossfilters-d3",
     "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Juantxo/crossfilter-bricks-v4.git"
+    },
     "description": "Demo de la librería crossfilters2.v1.5.4 con d3.v6",
     "main": "index.js",
     "scripts": {
